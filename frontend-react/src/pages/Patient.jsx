@@ -80,7 +80,7 @@ export default function Patient() {
   const [remotePlayBlocked, setRemotePlayBlocked] = useState(false)
   const [sidebarOpen, setSidebarOpen] = useState(false)
   const [sidebarWidth, setSidebarWidth] = useState(() => {
-    const stored = Number(window.localStorage.getItem('therasense-sidebar-width') || 0)
+    const stored = Number(window.localStorage.getItem('serien-sidebar-width') || 0)
     return Number.isFinite(stored) && stored >= 300 && stored <= 420 ? stored : 320
   })
   const { position, onPointerDown } = useDraggablePip(stageRef, pipRef)
@@ -129,12 +129,12 @@ export default function Patient() {
       window.addEventListener('mouseup', onMouseUp)
     }
 
-    window.addEventListener('therasense-sidebar-resize-start', handleResizeStart)
-    return () => window.removeEventListener('therasense-sidebar-resize-start', handleResizeStart)
+    window.addEventListener('serien-sidebar-resize-start', handleResizeStart)
+    return () => window.removeEventListener('serien-sidebar-resize-start', handleResizeStart)
   }, [sidebarWidth])
 
   useEffect(() => {
-    window.localStorage.setItem('therasense-sidebar-width', String(Math.round(sidebarWidth)))
+    window.localStorage.setItem('serien-sidebar-width', String(Math.round(sidebarWidth)))
   }, [sidebarWidth])
 
   async function flushQueuedCandidates(pc) {

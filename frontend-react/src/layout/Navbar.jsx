@@ -32,7 +32,7 @@ export default function Navbar() {
             </svg>
           </div>
           <div>
-            <h1 className="workspace-topbar__title dashboard-navbar__title">TheraSense</h1>
+            <h1 className="workspace-topbar__title dashboard-navbar__title">Serien</h1>
             <p className="workspace-topbar__page-label">{title}</p>
           </div>
         </div>

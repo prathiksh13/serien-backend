@@ -315,7 +315,7 @@ export async function generateClinicalSessionReportPdf({
     pdf.setTextColor(CLINICAL_THEME.muted)
     pdf.setFont('helvetica', 'normal')
     pdf.setFontSize(9)
-    pdf.text('TheraSense | Session Analysis Report', marginX, y)
+    pdf.text('Serien | Session Analysis Report', marginX, y)
     y += 6
     drawDivider(pdf, y - 2.5, marginX)
   }
@@ -329,7 +329,7 @@ export async function generateClinicalSessionReportPdf({
   pdf.circle(marginX + 5, y + 4, 2.1, 'F')
   pdf.setFont('helvetica', 'bold')
   pdf.setFontSize(12)
-  pdf.text('TheraSense', marginX + 9, y + 5)
+  pdf.text('Serien', marginX + 9, y + 5)
 
   pdf.setFontSize(16)
   pdf.text('Session Analysis Report', 105, y + 7, { align: 'center' })
@@ -506,7 +506,7 @@ export async function generateClinicalSessionReportPdf({
   pdf.setTextColor(CLINICAL_THEME.muted)
   pdf.text('This report is AI-assisted and should support, not replace, professional judgment.', marginX, pageHeight - 12)
   pdf.setFont('helvetica', 'bold')
-  pdf.text('TheraSense', 210 - marginX, pageHeight - 12, { align: 'right' })
+  pdf.text('Serien', 210 - marginX, pageHeight - 12, { align: 'right' })
 
-  pdf.save(`therasense-session-analysis-${reportId || report?.id || 'report'}.pdf`)
+  pdf.save(`serien-session-analysis-${reportId || report?.id || 'report'}.pdf`)
 }

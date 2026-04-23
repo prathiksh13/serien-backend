@@ -113,7 +113,7 @@ export default function SessionReportCard({ report, elementId = 'session-report-
   return (
     <section id={elementId} className="report-panel glass rounded-2xl p-5 dashboard-card-hover">
       <header className="rounded-2xl border border-white/10 bg-white/5 p-4">
-        <p className="dashboard-panel__eyebrow">TheraSense Session Report</p>
+        <p className="dashboard-panel__eyebrow">Serien Session Report</p>
         <div className="mt-3 grid gap-2 text-sm text-slate-200 md:grid-cols-2">
           <p><span className="font-semibold text-slate-100">Patient:</span> {report?.patientName || 'Patient'}</p>
           <p><span className="font-semibold text-slate-100">Therapist:</span> {report?.therapistName || 'Therapist'}</p>

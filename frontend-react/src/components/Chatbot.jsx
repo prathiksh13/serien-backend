@@ -16,7 +16,7 @@ function resolveDetectedEmotion() {
   const candidates = [
     window.sessionStorage.getItem('currentEmotion'),
     window.sessionStorage.getItem('latestEmotion'),
-    window.localStorage.getItem('therasense-current-emotion'),
+    window.localStorage.getItem('serien-current-emotion'),
   ]
 
   const value = candidates.find((item) => String(item || '').trim())
@@ -82,7 +82,7 @@ export default function Chatbot({ mode = 'patient' }) {
 
       const reply = String(data?.reply || '').trim() || FALLBACK_REPLY
       if (data?.booking && typeof window !== 'undefined') {
-        window.dispatchEvent(new CustomEvent('therasense:session-booked', { detail: data.booking }))
+        window.dispatchEvent(new CustomEvent('serien:session-booked', { detail: data.booking }))
       }
       setMessages((prev) => [...prev, { id: `a-${Date.now()}`, role: 'assistant', text: reply }])
     } catch (error) {
@@ -112,10 +112,10 @@ export default function Chatbot({ mode = 'patient' }) {
   return (
     <div className="floating-chatbot" aria-live="polite">
       {isOpen ? (
-        <section className="chatbot-panel" role="dialog" aria-label="TheraSense AI assistant">
+        <section className="chatbot-panel" role="dialog" aria-label="Serien AI assistant">
           <header className="chatbot-panel__header">
             <div>
-              <p className="chatbot-panel__eyebrow">TheraSense Assistant</p>
+              <p className="chatbot-panel__eyebrow">Serien Assistant</p>
               <h2 className="chatbot-panel__title">{mode === 'therapist' ? 'Clinical Support Chat' : 'Support Chat'}</h2>
             </div>
             <button

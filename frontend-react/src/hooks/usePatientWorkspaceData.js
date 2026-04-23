@@ -166,8 +166,8 @@ export default function usePatientWorkspaceData() {
   useEffect(() => {
     if (typeof window === 'undefined') return undefined
 
-    window.addEventListener('therasense:session-booked', refresh)
-    return () => window.removeEventListener('therasense:session-booked', refresh)
+    window.addEventListener('serien:session-booked', refresh)
+    return () => window.removeEventListener('serien:session-booked', refresh)
   }, [refresh])
 
   const bookAppointment = useCallback(async (formData) => {

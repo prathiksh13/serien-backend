@@ -146,7 +146,7 @@ function buildSuggestions({ riskLabel, topPriority = [], averages = {} }) {
   ]
 }
 
-export function buildTheraSenseReport({
+export function buildSerienReport({
   sessionId,
   patientId,
   therapistId,

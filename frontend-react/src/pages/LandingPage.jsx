@@ -9,7 +9,7 @@ const features = [
   },
   {
     icon: 'analytics',
-    title: 'AI Insight Reports',
+    title: 'Insight Reports',
     text: 'Summarized consultation notes and trend analysis delivered directly to the therapist dashboard.',
     colors: 'bg-tg-100 text-tg-700 group-hover:bg-tg-600 group-hover:text-white',
   },
@@ -22,7 +22,7 @@ const features = [
   {
     icon: 'auto_stories',
     title: 'Dynamic Journaling',
-    text: 'A private space for patients where AI prompts help articulate complex feelings between sessions.',
+    text: 'A private space for patients where guided prompts help articulate complex feelings between sessions.',
     colors: 'bg-tg-100 text-tg-700 group-hover:bg-tg-600 group-hover:text-white',
   },
 ]
@@ -33,7 +33,7 @@ export default function LandingPage() {
       <header className="sticky top-0 z-50 border-b border-slate-200/70 bg-white/80 backdrop-blur-2xl">
         <nav className="mx-auto flex h-20 w-full max-w-7xl items-center justify-between px-5 md:px-8">
           <div className="flex items-center gap-8">
-            <span className="text-2xl font-extrabold tracking-tight text-tg-700">TheraSense</span>
+            <span className="text-2xl font-extrabold tracking-tight text-tg-700">Serien</span>
             <div className="hidden items-center gap-6 md:flex">
               <a className="border-b-2 border-tg-600 text-tg-700" href="#hero">Home</a>
               <a className="font-medium text-slate-500 transition-colors hover:text-tg-700" href="#features">Platform</a>
@@ -66,13 +66,13 @@ export default function LandingPage() {
                 The Future of Care
               </span>
               <h1 className="mb-6 text-4xl font-extrabold leading-tight tracking-tight text-slate-900 md:text-6xl">
-                AI-Powered Emotional Insight for{' '}
+                Emotional Insight for{' '}
                 <span className="bg-gradient-to-br from-tg-700 to-tg-400 bg-clip-text text-transparent">
                   Better Therapy
                 </span>
               </h1>
               <p className="mb-10 max-w-lg text-lg leading-relaxed text-slate-600 md:text-xl">
-                TheraSense bridges the gap between sessions with real-time biometric analysis and AI-driven journals,
+                Serien bridges the gap between sessions with real-time biometric analysis and guided journals,
                 helping therapists understand what words can&apos;t always say.
               </p>
 
@@ -83,13 +83,7 @@ export default function LandingPage() {
                 >
                   Get Started
                 </Link>
-                <button
-                  type="button"
-                  className="flex items-center justify-center gap-2 rounded-xl bg-tg-100 px-8 py-4 font-semibold text-tg-900 transition hover:scale-[1.02]"
-                >
-                  <span className="material-symbols-outlined">play_circle</span>
-                  Watch Demo
-                </button>
+                
               </div>
             </div>
 
@@ -107,7 +101,7 @@ export default function LandingPage() {
                       <span className="material-symbols-outlined" style={{ fontVariationSettings: "'FILL' 1" }}>auto_awesome</span>
                     </div>
                     <div>
-                      <p className="mb-1 text-sm font-bold text-tg-900">AI Insight</p>
+                      <p className="mb-1 text-sm font-bold text-tg-900">Insight</p>
                       <p className="text-xs leading-relaxed text-slate-700">
                         Detected elevated stress patterns between 2 PM and 4 PM. Suggesting mindfulness prompt.
                       </p>
@@ -164,7 +158,7 @@ export default function LandingPage() {
                 Precision Meets Empathy
               </h2>
               <p className="mb-8 text-lg leading-relaxed text-slate-600">
-                Data shouldn&apos;t be cold. At TheraSense, we believe that quantitative insights should serve qualitative
+                Data shouldn&apos;t be cold. At Serien, we believe that quantitative insights should serve qualitative
                 connection. Our tools allow therapists to see the invisible progress a patient makes.
               </p>
 
@@ -187,8 +181,8 @@ export default function LandingPage() {
                 <h2 className="mb-8 text-4xl font-bold tracking-tight text-white md:text-5xl">
                   Ready to transform your clinical practice?
                 </h2>
-                  <p className="mb-12 text-lg text-tg-100 md:text-xl">
-                  Join over 5,000 mental health professionals using TheraSense to provide deeper, more insightful care.
+                <p className="mb-12 text-lg text-tg-100 md:text-xl">
+                  Join over 5,000 mental health professionals using Serien to provide deeper, more insightful care.
                 </p>
                 <div className="flex flex-wrap justify-center gap-5 md:gap-6">
                   <Link
@@ -213,7 +207,7 @@ export default function LandingPage() {
       <footer className="bg-[#f2f4f3] py-16">
         <div className="container mx-auto grid grid-cols-1 gap-12 px-6 md:grid-cols-4 md:px-8">
           <div className="md:col-span-2">
-            <span className="mb-6 block text-2xl font-bold text-tg-800">TheraSense</span>
+            <span className="mb-6 block text-2xl font-bold text-tg-800">Serien</span>
             <p className="mb-8 max-w-sm text-slate-600">
               Empowering mental health professionals with artificial intelligence designed for emotional intelligence.
             </p>
@@ -244,7 +238,7 @@ export default function LandingPage() {
         </div>
 
         <div className="container mx-auto mt-16 border-t border-slate-300/50 px-6 pt-8 text-center text-xs text-slate-500 md:px-8">
-          © 2024 TheraSense Technologies. All rights reserved. Precision Mental Health.
+          © 2026 Serien Technologies. All rights reserved. Precision Mental Health.
         </div>
       </footer>
     </div>

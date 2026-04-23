@@ -2524,7 +2524,7 @@ body::after {
   }
 }
 
-/* TheraSense screenshot migration styles */
+/* Serien screenshot migration styles */
 
 :root {
   --color-sidebar-bg: #0f172a;
@@ -4530,7 +4530,7 @@ body {
   }
 }
 
-/* TheraSense video dashboard redesign */
+/* Serien video dashboard redesign */
 .call-dashboard-shell {
   background: radial-gradient(circle at 18% 12%, rgba(86, 124, 141, 0.15), transparent 35%), #2f4156;
 }

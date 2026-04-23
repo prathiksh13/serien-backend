@@ -1,9 +1,9 @@
-# TheraSense Production Codebase Audit
+# Serien Production Codebase Audit
 
 ## SECTION 1 - Project Architecture
 
 ### 1.1 Purpose, Domain, and Core Problem
-TheraSense is a mental-health teleconsultation platform that combines role-based care workflows (patient and therapist), synchronous video sessions, in-browser emotion inference, session analytics/reporting, and automated communication flows (booking/reminder/emergency/therapist-follow-up emails).
+Serien is a mental-health teleconsultation platform that combines role-based care workflows (patient and therapist), synchronous video sessions, in-browser emotion inference, session analytics/reporting, and automated communication flows (booking/reminder/emergency/therapist-follow-up emails).
 
 Core problem solved:
 - Provide a single workflow where therapy sessions, emotional telemetry, journaling, reporting, and outreach all stay connected.
@@ -640,7 +640,7 @@ Therapist.jsx starts after remote stream is available:
   10. Update Graph.jsx + EmotionPanel.jsx in real time
 
 [On call end]
-  → buildTheraSenseReport(timeline) → Firestore reports
+  → buildSerienReport(timeline) → Firestore reports
   → buildSessionMetadata(timeline)  → Firestore sessionMetadata
 ```
 
@@ -985,5 +985,5 @@ This project is licensed under the **ISC License**.
 ---
 
 <div align="center">
-  <strong>TheraSense</strong> — Bridging minds through intelligent teleconsultation.
+  <strong>Serien</strong> — Bridging minds through intelligent teleconsultation.
 </div>

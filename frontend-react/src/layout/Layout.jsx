@@ -7,7 +7,7 @@ export default function Layout({ children }) {
   const [sidebarOpen, setSidebarOpen] = useState(false)
   const [collapsed, setCollapsed] = useState(false)
   const [sidebarWidth, setSidebarWidth] = useState(() => {
-    const stored = Number(window.localStorage.getItem('therasense-sidebar-width') || 0)
+    const stored = Number(window.localStorage.getItem('serien-sidebar-width') || 0)
     return Number.isFinite(stored) && stored >= 240 && stored <= 260 ? stored : 248
   })
   const location = useLocation()
@@ -48,12 +48,12 @@ export default function Layout({ children }) {
       window.addEventListener('mouseup', onMouseUp)
     }
 
-    window.addEventListener('therasense-sidebar-resize-start', handleResizeStart)
-    return () => window.removeEventListener('therasense-sidebar-resize-start', handleResizeStart)
+    window.addEventListener('serien-sidebar-resize-start', handleResizeStart)
+    return () => window.removeEventListener('serien-sidebar-resize-start', handleResizeStart)
   }, [sidebarWidth])
 
   useEffect(() => {
-    window.localStorage.setItem('therasense-sidebar-width', String(Math.round(sidebarWidth)))
+    window.localStorage.setItem('serien-sidebar-width', String(Math.round(sidebarWidth)))
   }, [sidebarWidth])
 
   return (

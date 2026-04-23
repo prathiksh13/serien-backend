@@ -11,7 +11,7 @@ function ChevronLeftIcon() {
 export default function CallTopbar({
   role = 'patient',
   title,
-  subtitle = 'TheraSense Live',
+  subtitle = 'Serien Live',
   actionLabel,
   onAction,
   actionDisabled = false,

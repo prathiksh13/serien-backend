@@ -204,7 +204,7 @@ function buildEmailLayout({ title, subtitle = '', intro = '', contentHtml = '', 
       <table role="presentation" style="max-width:640px;margin:0 auto;background:#ffffff;border:1px solid #e2e8f0;border-radius:14px;overflow:hidden;border-collapse:separate;">
         <tr>
           <td style="background:linear-gradient(135deg,#1d4ed8,#0f766e);padding:22px 24px;color:#ffffff;">
-            <p style="margin:0 0 4px 0;font-size:12px;letter-spacing:0.08em;text-transform:uppercase;opacity:0.9;">TheraSense</p>
+            <p style="margin:0 0 4px 0;font-size:12px;letter-spacing:0.08em;text-transform:uppercase;opacity:0.9;">Serien</p>
             <h1 style="margin:0;font-size:22px;line-height:1.3;">${escapeHtml(title)}</h1>
             ${subtitle ? `<p style="margin:8px 0 0 0;font-size:14px;opacity:0.95;">${escapeHtml(subtitle)}</p>` : ''}
           </td>
@@ -218,7 +218,7 @@ function buildEmailLayout({ title, subtitle = '', intro = '', contentHtml = '', 
         </tr>
         <tr>
           <td style="padding:14px 24px;background:#f8fafc;border-top:1px solid #e2e8f0;">
-            <p style="margin:0;font-size:12px;color:#64748b;">TheraSense - Supporting Your Mental Wellness Journey</p>
+            <p style="margin:0;font-size:12px;color:#64748b;">Serien - Supporting Your Mental Wellness Journey</p>
           </td>
         </tr>
       </table>
@@ -307,7 +307,7 @@ async function sendBookingEmailBySession(sessionId, meetingLink) {
 
   const sessionDateTime = formatDateTime(session.startTime);
   const link = meetingLink || `${APP_BASE_URL}/patient?sessionId=${sessionId}`;
-  const subject = 'Your Therapy Session is Confirmed - TheraSense';
+  const subject = 'Your Therapy Session is Confirmed - Serien';
   const patientName = patient.name || patient.email || 'Patient';
   const therapistName = therapist.name || therapist.email || 'Therapist';
 
@@ -324,7 +324,7 @@ async function sendBookingEmailBySession(sessionId, meetingLink) {
     closingHtml: '<p style="margin:0;">Please join a few minutes early to settle in comfortably.</p>',
   });
 
-  const text = `Your Therapy Session is Confirmed - TheraSense\nPatient: ${patientName}\nTherapist: ${therapistName}\nDate and Time: ${sessionDateTime}\nSession Link: ${link}\n\nYour session has been successfully scheduled. We are here to support your journey.`;
+  const text = `Your Therapy Session is Confirmed - Serien\nPatient: ${patientName}\nTherapist: ${therapistName}\nDate and Time: ${sessionDateTime}\nSession Link: ${link}\n\nYour session has been successfully scheduled. We are here to support your journey.`;
 
   await Promise.all([
     sendEmail({ to: patient.email, subject, html, text }),
@@ -362,7 +362,7 @@ async function sendReminderEmailBySession(sessionId) {
   const therapistName = therapist.name || therapist.email || 'Therapist';
   const html = buildEmailLayout({
     title: 'Reminder: Session Starts in 10 Minutes',
-    subtitle: 'A gentle reminder from TheraSense',
+    subtitle: 'A gentle reminder from Serien',
     intro: 'Your session is about to begin. Take a moment to prepare and join when ready.',
     contentHtml: buildSessionInfoBlock({
       patientName,
@@ -415,7 +415,7 @@ function getSessionLink(sessionId, reportLink) {
   return `${APP_BASE_URL}/reports?sessionId=${encodeURIComponent(sessionId)}`;
 }
 
-function normalizeSummary(value, fallback = 'Your session summary is available in your TheraSense reports dashboard.') {
+function normalizeSummary(value, fallback = 'Your session summary is available in your Serien reports dashboard.') {
   const text = String(value || '').trim();
   if (!text) return fallback;
   return text.length > 1200 ? `${text.slice(0, 1197)}...` : text;
@@ -426,7 +426,7 @@ function buildOptionalPdfAttachment(reportPdfBase64, fileName) {
   try {
     const normalized = String(reportPdfBase64).replace(/^data:application\/pdf;base64,/, '');
     return [{
-      filename: fileName || 'therasense-session-report.pdf',
+      filename: fileName || 'serien-session-report.pdf',
       content: Buffer.from(normalized, 'base64'),
       contentType: 'application/pdf',
     }];
@@ -468,7 +468,7 @@ async function sendReportEmailsByPayload(payload = {}) {
 
   const patientHtml = buildEmailLayout({
     title: 'Your Session Summary Is Ready',
-    subtitle: 'A supportive reflection from your TheraSense session',
+    subtitle: 'A supportive reflection from your Serien session',
     intro: 'Thank you for your openness during the session. Your progress matters, and your summary is now available.',
     contentHtml: `
       <p style="margin:0 0 10px 0;font-size:14px;color:#334155;"><strong>Session Date:</strong> ${escapeHtml(sessionDateTime)}</p>
@@ -482,7 +482,7 @@ async function sendReportEmailsByPayload(payload = {}) {
 
   const therapistHtml = buildEmailLayout({
     title: 'Session Summary Ready for Clinical Review',
-    subtitle: 'TheraSense report generated successfully',
+    subtitle: 'Serien report generated successfully',
     intro: 'The session report is now available with insights to support follow-up care.',
     contentHtml: `
       <p style="margin:0 0 10px 0;font-size:14px;color:#334155;"><strong>Patient:</strong> ${escapeHtml(patient.name || patient.email || 'Patient')}</p>

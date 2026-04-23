@@ -17,7 +17,7 @@ export default function Sidebar({ open, onClose, homePath = '/patient-home' }) {
         <div className="dashboard-sidebar__brand">
           <div className="dashboard-sidebar__logo">T</div>
           <div>
-            <p className="dashboard-sidebar__eyebrow">TheraSense</p>
+            <p className="dashboard-sidebar__eyebrow">Serien</p>
             <h2 className="dashboard-sidebar__title">SaaS Console</h2>
           </div>
         </div>

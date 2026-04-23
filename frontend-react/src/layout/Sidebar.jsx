@@ -183,7 +183,7 @@ export default function Sidebar({ open, onClose }) {
               <path d="M12 21s-7-4.5-7-10a4 4 0 0 1 7-2.7A4 4 0 0 1 19 11c0 5.5-7 10-7 10Z" />
             </svg>
           </div>
-          <h2 className="workspace-sidebar__title dashboard-sidebar__title">TheraSense</h2>
+          <h2 className="workspace-sidebar__title dashboard-sidebar__title">Serien</h2>
         </div>
 
         <nav className="workspace-sidebar__nav dashboard-sidebar__nav">
@@ -229,7 +229,7 @@ export default function Sidebar({ open, onClose }) {
           className="workspace-sidebar__resize-handle"
           aria-label="Resize sidebar"
           onMouseDown={(event) => {
-            const resizeEvent = new CustomEvent('therasense-sidebar-resize-start', {
+            const resizeEvent = new CustomEvent('serien-sidebar-resize-start', {
               detail: { clientX: event.clientX },
             })
             window.dispatchEvent(resizeEvent)

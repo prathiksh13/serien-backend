@@ -238,8 +238,8 @@ export default function Login() {
 
   return (
 	<section className="ts-auth-shell">
-	  <div className="ts-auth-brand">
-	    <h1>TheraSense</h1>
+    <div className="ts-auth-brand">
+      <h1>Serien</h1>
 	    <p>Mental Health Support Platform</p>
 	  </div>
 

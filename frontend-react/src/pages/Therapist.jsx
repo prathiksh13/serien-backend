@@ -10,7 +10,7 @@ import SessionReportCard from '../components/SessionReportCard'
 import VideoControls from '../components/VideoControls'
 import useDraggablePip from '../hooks/useDraggablePip'
 import { generateReportPDF } from '../utils/generatePDF'
-import { buildTheraSenseReport } from '../utils/reportBuilder'
+import { buildSerienReport } from '../utils/reportBuilder'
 import { buildSessionMetadata, calculateStressScore, deriveMoodState } from '../utils/sessionAnalytics'
 import { firebaseAuth, firestoreDb } from '../lib/firebase'
 
@@ -62,12 +62,8 @@ const STRESS_ALERT_THRESHOLD = 0.72
 const ALERT_COOLDOWN_MS = 4000
 const FACE_API_SCRIPT_CANDIDATES = [
   '/face-api.js/dist/face-api.js',
-  'http://localhost:3000/face-api.js/dist/face-api.js',
 ]
-const FACE_API_MODEL_CANDIDATES = [
-  '/models',
-  'http://localhost:3000/models',
-]
+const MODEL_URL = `${window.location.origin}/models`
 const MODEL_LOAD_TIMEOUT_MS = 15000
 const EMOTION_MODEL_OPTIONS = [
   { key: 'face-api', label: 'face-api.js (default)' },
@@ -167,26 +163,18 @@ async function checkUrl(url) {
 
 async function resolveFaceApiEndpoints() {
   const scriptUrl = FACE_API_SCRIPT_CANDIDATES[0]
-  let modelUrl = ''
+  const tinyManifest = `${MODEL_URL}/tiny_face_detector_model-weights_manifest.json`
+  const expressionManifest = `${MODEL_URL}/face_expression_model-weights_manifest.json`
+  const tinyOk = await checkUrl(tinyManifest)
+  const exprOk = await checkUrl(expressionManifest)
 
-  for (const candidate of FACE_API_MODEL_CANDIDATES) {
-    const tinyManifest = `${candidate}/tiny_face_detector_model-weights_manifest.json`
-    const expressionManifest = `${candidate}/face_expression_model-weights_manifest.json`
-    const tinyOk = await checkUrl(tinyManifest)
-    const exprOk = await checkUrl(expressionManifest)
-    if (tinyOk && exprOk) {
-      modelUrl = candidate
-      break
-    }
-  }
-
-  if (!modelUrl) {
+  if (!tinyOk || !exprOk) {
     throw new Error(
       'Face model files are not reachable. Ensure Node server is running and /models serves tiny_face_detector_model-weights_manifest.json and face_expression_model-weights_manifest.json.'
     )
   }
 
-  return { scriptUrl, modelUrl }
+  return { scriptUrl }
 }
 
 async function ensureFaceApiLoaded(scriptUrl) {
@@ -259,7 +247,7 @@ export default function Therapist() {
   const [modelsLoaded, setModelsLoaded] = useState(false)
   const [modelLoadError, setModelLoadError] = useState('')
   const [therapistSelectedModel, setTherapistSelectedModel] = useState(() => {
-    const stored = window.localStorage.getItem('therasense-therapist-emotion-model')
+    const stored = window.localStorage.getItem('serien-therapist-emotion-model')
     return stored === 'keras-h5' ? 'keras-h5' : 'face-api'
   })
   const [kerasModelFilesAvailable, setKerasModelFilesAvailable] = useState(false)
@@ -273,7 +261,7 @@ export default function Therapist() {
   const [sidebarOpen, setSidebarOpen] = useState(false)
   const [analyticsOpen, setAnalyticsOpen] = useState(false)
   const [sidebarWidth, setSidebarWidth] = useState(() => {
-    const stored = Number(window.localStorage.getItem('therasense-sidebar-width') || 0)
+    const stored = Number(window.localStorage.getItem('serien-sidebar-width') || 0)
     return Number.isFinite(stored) && stored >= 300 && stored <= 420 ? stored : 320
   })
   const [sessionContext, setSessionContext] = useState({
@@ -336,16 +324,16 @@ export default function Therapist() {
       window.addEventListener('mouseup', onMouseUp)
     }
 
-    window.addEventListener('therasense-sidebar-resize-start', handleResizeStart)
-    return () => window.removeEventListener('therasense-sidebar-resize-start', handleResizeStart)
+    window.addEventListener('serien-sidebar-resize-start', handleResizeStart)
+    return () => window.removeEventListener('serien-sidebar-resize-start', handleResizeStart)
   }, [sidebarWidth])
 
   useEffect(() => {
-    window.localStorage.setItem('therasense-sidebar-width', String(Math.round(sidebarWidth)))
+    window.localStorage.setItem('serien-sidebar-width', String(Math.round(sidebarWidth)))
   }, [sidebarWidth])
 
   useEffect(() => {
-    window.localStorage.setItem('therasense-therapist-emotion-model', therapistSelectedModel)
+    window.localStorage.setItem('serien-therapist-emotion-model', therapistSelectedModel)
   }, [therapistSelectedModel])
 
   useEffect(() => {
@@ -415,7 +403,7 @@ export default function Therapist() {
 
   const reportPreview = useMemo(() => {
     return {
-      ...buildTheraSenseReport({
+      ...buildSerienReport({
         sessionId: sessionContext.sessionId,
         patientId: sessionContext.patientId,
         therapistId: sessionContext.therapistId,
@@ -889,7 +877,7 @@ export default function Therapist() {
             setCurrentEmotion(top.emotion.toUpperCase())
             window.sessionStorage.setItem('currentEmotion', top.emotion)
             window.sessionStorage.setItem('latestEmotion', top.emotion)
-            window.localStorage.setItem('therasense-current-emotion', top.emotion)
+            window.localStorage.setItem('serien-current-emotion', top.emotion)
             setCurrentConfidence(top.score)
             setCurrentStressScore(stressScore)
             setLastTimestamp(`Timestamp: ${now} | Confidence: ${Math.round(top.score * 100)}%`)
@@ -983,19 +971,19 @@ export default function Therapist() {
     async function loadModelsAndFaceApi() {
       setStatus('Loading face-api models...')
       setModelLoadError('')
-      const { scriptUrl, modelUrl } = await resolveFaceApiEndpoints()
+      const { scriptUrl } = await resolveFaceApiEndpoints()
       const faceapi = await withTimeout(
         ensureFaceApiLoaded(scriptUrl),
         MODEL_LOAD_TIMEOUT_MS,
         'Timed out while loading face-api.js script.'
       )
       await withTimeout(
-        faceapi.nets.tinyFaceDetector.loadFromUri(modelUrl),
+        faceapi.nets.tinyFaceDetector.loadFromUri(MODEL_URL),
         MODEL_LOAD_TIMEOUT_MS,
         'Timed out while loading tiny face detector model.'
       )
       await withTimeout(
-        faceapi.nets.faceExpressionNet.loadFromUri(modelUrl),
+        faceapi.nets.faceExpressionNet.loadFromUri(MODEL_URL),
         MODEL_LOAD_TIMEOUT_MS,
         'Timed out while loading face expression model.'
       )
@@ -1105,7 +1093,12 @@ export default function Therapist() {
           setStatus(`Local camera/mic unavailable (${mediaError?.message || 'permission denied'}). Continuing in receive-only mode...`)
         }
 
-        faceapiInstance = await loadModelsAndFaceApi()
+        try {
+          faceapiInstance = await loadModelsAndFaceApi()
+        } catch (err) {
+          console.error('Model load failed:', err)
+          throw err
+        }
         startDetectionIfRemoteReady(faceapiInstance)
       } catch (error) {
         console.error(error)
@@ -1336,7 +1329,7 @@ export default function Therapist() {
                   {!remoteStream ? (
                     <div className="call-waiting-overlay">
                       <p className="call-waiting-overlay__title">Waiting for user...</p>
-                      <p className="call-waiting-overlay__subtitle">TheraSense is ready. Video will appear once the patient joins.</p>
+                      <p className="call-waiting-overlay__subtitle">Serien is ready. Video will appear once the patient joins.</p>
                     </div>
                   ) : null}
 

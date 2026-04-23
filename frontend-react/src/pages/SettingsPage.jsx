@@ -6,7 +6,7 @@ import Toggle from '../components/ui/Toggle'
 import { useAuth } from '../context/AuthContext'
 import { firestoreDb } from '../lib/firebase'
 
-const STORAGE_KEY = 'therasense-ui-settings'
+const STORAGE_KEY = 'serien-ui-settings'
 
 function BellIcon() {
   return (
